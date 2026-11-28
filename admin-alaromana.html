@@ -3,64 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel Administrador</title>
+  <title>Panel Administrador | A La Romana</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --carbon: #131110; --crema: #faf6f0; --blanco: #ffffff; --rojo: #d62323; --dorado: #f5a623; --verde: #16a34a; --borde: #e6ddd0; --sec: #686058; }
+    :root {
+      --negro: #0d0f14; --fondo: #f4f7fb; --blanco: #ffffff;
+      --celeste: #35a7e6; --celeste-osc: #187db8; --dorado: #f4b223;
+      --verde: #4d9e2a; --rojo: #dc2626; --borde: #dce5f0; --sec: #5a6270;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: var(--crema); color: var(--carbon); padding-bottom: 60px; }
-    .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; background: var(--carbon); }
-    .login-card { background: var(--blanco); width: 100%; max-width: 410px; border-radius: 20px; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: var(--fondo); color: var(--negro); padding-bottom: 60px; }
+    .login-wrap {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
+      background: radial-gradient(circle at 80% 20%, rgba(53,167,230,0.22), transparent 45%), var(--negro);
+    }
+    .login-card { background: var(--blanco); width: 100%; max-width: 410px; border-radius: 20px; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.45); border-top: 4px solid var(--celeste); }
     .login-card h1 { font-family: 'Oswald', sans-serif; font-size: 28px; margin-bottom: 4px; }
-    .store-pill { display: inline-block; background: #f3ece0; color: var(--carbon); font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 999px; margin-bottom: 12px; }
+    .store-pill { display: inline-block; background: #e9f6fd; color: var(--celeste-osc); font-size: 12px; font-weight: 800; padding: 4px 11px; border-radius: 999px; margin-bottom: 12px; }
     .login-card p { color: var(--sec); font-size: 14px; margin-bottom: 16px; }
     .demo-banner { background: #fff3cd; border: 1.5px solid #f5a623; color: #664d03; padding: 10px 12px; border-radius: 12px; font-size: 13px; margin-bottom: 16px; line-height: 1.45; }
-    .topbar { background: var(--carbon); color: #fff; padding: 14px 16px; position: sticky; top: 0; z-index: 30; }
+    .topbar { background: var(--negro); color: #fff; padding: 14px 16px; position: sticky; top: 0; z-index: 30; border-bottom: 3px solid var(--celeste); }
     .topbar-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .topbar h1 { font-family: 'Oswald', sans-serif; color: var(--dorado); font-size: 22px; }
+    .topbar h1 { font-family: 'Oswald', sans-serif; color: var(--celeste); font-size: 22px; letter-spacing: 0.4px; }
     .top-btns { display: flex; gap: 8px; flex-wrap: wrap; }
-    .btn-sm { border: none; border-radius: 10px; padding: 8px 12px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
-    .btn-view { background: var(--dorado); color: #1a1205; }
-    .btn-copy { background: #fff; color: var(--carbon); }
+    .btn-sm { border: none; border-radius: 10px; padding: 8px 12px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: transform 0.15s ease; }
+    .btn-sm:active { transform: scale(0.95); }
+    .btn-view { background: var(--celeste); color: var(--negro); font-weight: 800; }
+    .btn-copy { background: #fff; color: var(--negro); }
     .btn-out { background: rgba(255,255,255,0.12); color: #fff; }
     .wrap { max-width: 900px; margin: 0 auto; padding: 16px; }
     .status-box { background: var(--blanco); border: 1.5px solid var(--borde); border-radius: 16px; padding: 14px; margin-bottom: 16px; }
     .status-box h3 { font-size: 13px; text-transform: uppercase; color: var(--sec); margin-bottom: 10px; }
     .estado-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     @media (max-width: 600px) { .estado-grid { grid-template-columns: 1fr; } }
-    .estado-btn { padding: 11px; border: 1.5px solid var(--borde); border-radius: 12px; background: #fff; font-weight: 800; font-size: 13.5px; cursor: pointer; }
-    .estado-btn.active { background: var(--carbon); color: var(--dorado); border-color: var(--carbon); }
+    .estado-btn { padding: 11px; border: 1.5px solid var(--borde); border-radius: 12px; background: #fff; font-weight: 800; font-size: 13.5px; cursor: pointer; transition: transform 0.14s ease, background 0.16s ease; }
+    .estado-btn:active { transform: scale(0.97); }
+    .estado-btn.active { background: var(--negro); color: var(--celeste); border-color: var(--negro); }
     .tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 18px; }
-    .tab-btn { padding: 12px 8px; border-radius: 12px; border: 1.5px solid var(--borde); background: var(--blanco); font-weight: 800; font-size: 14px; cursor: pointer; }
-    .tab-btn.active { background: var(--rojo); color: #fff; border-color: var(--rojo); }
+    .tab-btn { padding: 12px 8px; border-radius: 12px; border: 1.5px solid var(--borde); background: var(--blanco); font-weight: 800; font-size: 14px; cursor: pointer; transition: transform 0.14s ease, background 0.16s ease; }
+    .tab-btn:active { transform: scale(0.97); }
+    .tab-btn.active { background: var(--celeste-osc); color: #fff; border-color: var(--celeste-osc); }
     .panel-sec { display: none; }
     .panel-sec.active { display: block; }
     .toolbar { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
     .toolbar input, .toolbar select { padding: 11px 12px; border: 1.5px solid var(--borde); border-radius: 12px; font-size: 14px; background: #fff; flex: 1; min-width: 150px; }
-    .btn-add { background: var(--verde); color: #fff; border: none; border-radius: 12px; padding: 12px 18px; font-weight: 800; font-size: 14.5px; cursor: pointer; }
-    .prod-item { background: var(--blanco); border: 1px solid var(--borde); border-radius: 16px; padding: 12px; display: flex; gap: 12px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
-    .prod-item.sin-stock { opacity: 0.65; background: #f3efe8; }
-    .thumb { width: 64px; height: 64px; border-radius: 12px; background: #f4ead8; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; font-size: 28px; }
+    .btn-add { background: var(--verde); color: #fff; border: none; border-radius: 12px; padding: 12px 18px; font-weight: 800; font-size: 14.5px; cursor: pointer; transition: transform 0.14s ease; }
+    .btn-add:active { transform: scale(0.96); }
+    .prod-item { background: var(--blanco); border: 1.5px solid var(--borde); border-radius: 16px; padding: 12px; display: flex; gap: 12px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+    .prod-item.sin-stock { opacity: 0.65; background: #edf2f7; }
+    .thumb { width: 64px; height: 64px; border-radius: 12px; background: #e9f6fd; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; font-size: 28px; }
     .thumb img { width: 100%; height: 100%; object-fit: cover; }
     .prod-info { flex: 1; min-width: 180px; }
     .prod-info h4 { font-size: 16px; font-weight: 800; }
     .prod-meta { font-size: 13px; color: var(--sec); margin-top: 2px; }
-    .prod-price { font-size: 16px; font-weight: 800; color: var(--rojo); margin-top: 4px; }
+    .prod-price { font-size: 16px; font-weight: 800; color: var(--celeste-osc); margin-top: 4px; }
     .prod-actions { display: flex; gap: 6px; flex-wrap: wrap; }
-    .act-btn { border: 1.5px solid var(--borde); background: #fff; border-radius: 10px; padding: 8px 10px; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+    .act-btn { border: 1.5px solid var(--borde); background: #fff; border-radius: 10px; padding: 8px 10px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: transform 0.12s ease; }
+    .act-btn:active { transform: scale(0.94); }
     .act-btn.stock-on { background: #dcfce7; border-color: #86efac; color: #166534; }
     .act-btn.stock-off { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
     .act-btn.promo-on { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
     .act-btn.del { color: #b91c1c; }
-    .card-box { background: var(--blanco); border: 1px solid var(--borde); border-radius: 16px; padding: 18px; }
+    .card-box { background: var(--blanco); border: 1.5px solid var(--borde); border-radius: 16px; padding: 18px; }
     .field { margin-bottom: 14px; }
-    .field label { display: block; font-size: 12.5px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
+    .field label { display: block; font-size: 12.5px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; color: var(--sec); }
     .field input, .field textarea, .field select { width: 100%; padding: 11px 12px; border: 1.5px solid var(--borde); border-radius: 10px; font-size: 14.5px; font-family: inherit; background: #fff; }
-    .btn-primary { width: 100%; padding: 14px; background: var(--rojo); color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer; }
-    .upload-box { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 6px; }
-    .btn-upload { background: var(--carbon); color: var(--dorado); border: none; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; }
+    .btn-primary { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--celeste-osc), var(--celeste)); color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer; }
+    .upload-box { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
+    .btn-upload { background: var(--negro); color: var(--celeste); border: none; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; }
+    .btn-clear-foto {
+      background: #fee2e2; color: #991b1b; border: 1.5px solid #fca5a5;
+      padding: 9px 12px; border-radius: 10px; font-weight: 800; font-size: 13px; cursor: pointer;
+      display: none; transition: transform 0.14s ease, background 0.15s ease;
+    }
+    .btn-clear-foto:hover { background: #fecaca; }
+    .btn-clear-foto:active { transform: scale(0.95); }
     .preview-mini { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; border: 1px solid var(--borde); display: none; }
-    .switch-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #faf6f0; border-radius: 10px; margin-bottom: 10px; cursor: pointer; font-weight: 700; font-size: 14px; }
+    .switch-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #eef4fa; border-radius: 10px; margin-bottom: 10px; cursor: pointer; font-weight: 700; font-size: 14px; }
     .switch-row input { width: 20px; height: 20px; }
     .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.68); display: none; align-items: flex-end; justify-content: center; z-index: 100; }
     @media (min-width: 600px) { .modal-bg { align-items: center; } }
@@ -95,7 +114,7 @@
   <div id="adminScreen" style="display:none;">
     <header class="topbar">
       <div class="topbar-inner">
-        <h1 id="admStoreTitle">MI CATÁLOGO</h1>
+        <h1 id="admStoreTitle">A LA ROMANA · ADMIN</h1>
         <div class="top-btns">
           <button class="btn-sm btn-copy" id="btnCopyLink">🔗 Copiar Link</button>
           <a href="index.html" target="_blank" class="btn-sm btn-view" id="btnViewCat">👁️ Ver Catálogo</a>
@@ -106,7 +125,7 @@
 
     <div class="wrap">
       <div class="demo-banner" id="demoTopWarn" style="display:none;">
-        🧪 <strong>Estás en Modo Prueba:</strong> los cambios se guardan solo en este navegador. Cuando pegues tus claves de Firebase en <code>config.js</code>, se guardarán en internet para todo el mundo.
+        🧪 <strong>Estás en Modo Prueba:</strong> los cambios se guardan solo en este navegador.
       </div>
 
       <div class="status-box">
@@ -147,6 +166,7 @@
             <input id="nLogo" placeholder="Link de imagen o subila abajo" />
             <div class="upload-box">
               <label class="btn-upload">📸 Subir logo<input type="file" id="nLogoFile" accept="image/*" hidden /></label>
+              <button type="button" class="btn-clear-foto" id="btnClearLogo">✕ Quitar logo</button>
               <img id="nLogoPrev" class="preview-mini" />
             </div>
           </div>
@@ -154,7 +174,7 @@
           <div class="field"><label>Teléfono visible</label><input id="nTelVis" /></div>
           <div class="field"><label>Teléfono fijo (opcional)</label><input id="nTelFijo" /></div>
           <div class="field"><label>Dirección</label><input id="nDir" /></div>
-          <div class="field"><label>Instagram (sin @)</label><input id="nIg" /></div>
+          <div class="field"><label>Instagram (sin @)</label><input id="nIg" placeholder="alaromana.2174" /></div>
           <div class="field"><label>Texto de envío / delivery</label><input id="nEnvio" /></div>
           <div class="field"><label>Horario visible</label><input id="nHorTxt" /></div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
@@ -180,6 +200,7 @@
         <input id="pFoto" placeholder="Se completa sola al subir foto" />
         <div class="upload-box">
           <label class="btn-upload">📸 Elegir foto de galería / cámara<input type="file" id="pFotoFile" accept="image/*" hidden /></label>
+          <button type="button" class="btn-clear-foto" id="btnClearProdFoto">✕ Quitar foto</button>
           <img id="pFotoPrev" class="preview-mini" />
           <span id="pUpStatus" style="font-size:12.5px; color:var(--sec);"></span>
         </div>
@@ -206,384 +227,426 @@
 
   <script src="config.js"></script>
   <script src="menu.js"></script>
-  <script type="module">
-    const CFG = window.APP_CONFIG || {};
-    const DEFAULT_ID = (CFG.TIENDA_ID || "a-la-romana").trim().toLowerCase();
-    const urlT = new URLSearchParams(window.location.search).get("t");
-    const TIENDA_ID = (urlT || DEFAULT_ID).trim().toLowerCase().replace(/[^a-z0-9-_]/g, "-") || DEFAULT_ID;
+  <script>
+    (async () => {
+      const CFG = window.APP_CONFIG || {};
+      const TIENDA_ID = "a-la-romana";
 
-    const DEMO_MODE = !CFG.FIREBASE_CONFIG || !CFG.FIREBASE_CONFIG.apiKey || CFG.FIREBASE_CONFIG.apiKey === "PEGAR_AQUI";
-    const CLOUD_DEMO = !CFG.CLOUDINARY_CLOUD_NAME || CFG.CLOUDINARY_CLOUD_NAME === "PEGAR_AQUI";
-    const DEMO_EMAIL = CFG.DEMO_EMAIL || "demo@alaromana.com";
-    const DEMO_PASS = CFG.DEMO_PASS || "1234";
+      const DEMO_MODE = !CFG.FIREBASE_CONFIG || !CFG.FIREBASE_CONFIG.apiKey || CFG.FIREBASE_CONFIG.apiKey === "PEGAR_AQUI";
+      const CLOUD_DEMO = !CFG.CLOUDINARY_CLOUD_NAME || CFG.CLOUDINARY_CLOUD_NAME === "PEGAR_AQUI";
+      const DEMO_EMAIL = CFG.DEMO_EMAIL || "demo@alaromana.com";
+      const DEMO_PASS = CFG.DEMO_PASS || "1234";
 
-    document.getElementById("loginStoreBadge").textContent = "Negocio: " + TIENDA_ID;
-    document.getElementById("btnViewCat").href = "index.html?t=" + encodeURIComponent(TIENDA_ID);
+      document.getElementById("loginStoreBadge").textContent = "Negocio: " + TIENDA_ID;
+      document.getElementById("btnViewCat").href = "index.html";
 
-    let auth = null, db = null, fbAuthMod = null, fbDbMod = null;
-    if (!DEMO_MODE) {
-      try {
-        const fbApp = await import("https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js");
-        fbAuthMod = await import("https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js");
-        fbDbMod = await import("https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js");
-        const app = fbApp.initializeApp(CFG.FIREBASE_CONFIG);
-        auth = fbAuthMod.getAuth(app);
-        db = fbDbMod.getFirestore(app);
-      } catch (err) {
-        alert("No se pudo conectar con Firebase: " + err.message);
-      }
-    }
-
-    let DATA = null;
-    let editProdIdx = -1, editCatIdx = -1;
-    const fmt = (n) => "$" + Number(n || 0).toLocaleString("es-AR");
-
-    function showToast(txt, isErr = false) {
-      const t = document.getElementById("toast");
-      t.textContent = txt; t.style.background = isErr ? "#b91c1c" : "#166534";
-      t.style.display = "block";
-      clearTimeout(window._tt);
-      window._tt = setTimeout(() => { t.style.display = "none"; }, 2600);
-    }
-
-    function obtenerBaseInicial(ownerUid = "demo") {
-      if (TIENDA_ID === DEFAULT_ID && window.CATALOGO_DATA) {
-        const copia = JSON.parse(JSON.stringify(window.CATALOGO_DATA));
-        copia.ownerUid = ownerUid;
-        copia.productos = (copia.productos || []).map(p => ({ ...p, disponible: p.disponible !== false, esPromo: Boolean(p.esPromo) }));
-        return copia;
-      }
-      const nombreLimpio = TIENDA_ID.replace(/[-_]+/g, " ").toUpperCase();
-      return {
-        ownerUid,
-        negocio: {
-          nombre: nombreLimpio, subtitulo: "Pedidos online por WhatsApp", logo: "", whatsapp: "",
-          telefonoVisible: "", telefonoFijo: "", direccion: "", instagram: "",
-          envioTexto: "Delivery y Retiro", horarioTexto: "Todos los días de 19:00 a 00:00 hs",
-          horaApertura: 19, horaCierre: 24, estadoModo: "auto"
-        },
-        categorias: [{ id: "destacados", nombre: "DESTACADOS", icono: "⭐" }],
-        productos: [{
-          categoriaId: "destacados", nombre: "Producto de ejemplo",
-          descripcion: "Editá o borrá este producto para cargar los tuyos.",
-          precio: 5000, foto: "", icono: "🍔", ejemploNota: "", disponible: true, esPromo: false
-        }]
-      };
-    }
-
-    async function guardarEnNube(msg = "✅ ¡Guardado y actualizado!") {
-      if (DEMO_MODE) {
+      let auth = null, db = null, fbAuthMod = null, fbDbMod = null;
+      if (!DEMO_MODE) {
         try {
-          localStorage.setItem("demo_tienda_" + TIENDA_ID, JSON.stringify(DATA));
-          showToast(msg);
-        } catch (e) {
-          showToast("❌ Demasiado pesado para el modo prueba local.", true);
+          const fbApp = await import("https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js");
+          fbAuthMod = await import("https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js");
+          fbDbMod = await import("https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js");
+          const app = fbApp.initializeApp(CFG.FIREBASE_CONFIG);
+          auth = fbAuthMod.getAuth(app);
+          db = fbDbMod.getFirestore(app);
+        } catch (err) {
+          alert("No se pudo conectar con Firebase: " + err.message);
         }
-        return;
       }
-      try {
-        await fbDbMod.setDoc(fbDbMod.doc(db, "tiendas", TIENDA_ID), DATA);
-        showToast(msg);
-      } catch (e) {
-        showToast("❌ Error al guardar.", true);
+
+      let DATA = null;
+      let editProdIdx = -1, editCatIdx = -1;
+      const fmt = (n) => "$" + Number(n || 0).toLocaleString("es-AR");
+
+      function showToast(txt, isErr = false) {
+        const t = document.getElementById("toast");
+        t.textContent = txt; t.style.background = isErr ? "#b91c1c" : "#166534";
+        t.style.display = "block";
+        clearTimeout(window._tt);
+        window._tt = setTimeout(() => { t.style.display = "none"; }, 2600);
       }
-    }
 
-    function comprimirImagen(file, maxW = 600, quality = 0.74, asDataUrl = false) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const img = new Image();
-          img.onload = () => {
-            const scale = Math.min(1, maxW / img.width);
-            const canvas = document.createElement("canvas");
-            canvas.width = Math.round(img.width * scale);
-            canvas.height = Math.round(img.height * scale);
-            canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
-            if (asDataUrl) resolve(canvas.toDataURL("image/jpeg", quality));
-            else canvas.toBlob(blob => resolve(blob), "image/jpeg", quality);
-          };
-          img.onerror = reject; img.src = e.target.result;
-        };
-        reader.onerror = reject; reader.readAsDataURL(file);
-      });
-    }
-
-    async function subirFoto(file) {
-      if (CLOUD_DEMO) return await comprimirImagen(file, 500, 0.7, true);
-      const blob = await comprimirImagen(file, 700, 0.78, false);
-      const fd = new FormData();
-      fd.append("file", blob, "foto.jpg");
-      fd.append("upload_preset", CFG.CLOUDINARY_UPLOAD_PRESET);
-      const res = await fetch(`https://api.cloudinary.com/v1_1/${CFG.CLOUDINARY_CLOUD_NAME}/image/upload`, { method: "POST", body: fd });
-      const json = await res.json();
-      if (!json.secure_url) throw new Error(json.error?.message || "Error subiendo foto");
-      return json.secure_url;
-    }
-
-    function entrarAlPanel() {
-      document.getElementById("loginScreen").style.display = "none";
-      document.getElementById("adminScreen").style.display = "block";
-      if (DEMO_MODE) document.getElementById("demoTopWarn").style.display = "block";
-      renderTodo();
-    }
-
-    function leerLocalSeguro() {
-      try {
-        const raw = localStorage.getItem("demo_tienda_" + TIENDA_ID);
-        return raw ? JSON.parse(raw) : null;
-      } catch { return null; }
-    }
-
-    if (DEMO_MODE) {
-      document.getElementById("demoBanner").style.display = "block";
-      document.getElementById("demoEmailTxt").textContent = DEMO_EMAIL;
-      document.getElementById("demoPassTxt").textContent = DEMO_PASS;
-      document.getElementById("lEmail").value = DEMO_EMAIL;
-      document.getElementById("lPass").value = DEMO_PASS;
-
-      if (sessionStorage.getItem("demo_logged_" + TIENDA_ID) === "1") {
-        DATA = leerLocalSeguro() || obtenerBaseInicial();
-        entrarAlPanel();
+      function actualizarPreviewProd() {
+        const url = document.getElementById("pFoto").value.trim();
+        const prev = document.getElementById("pFotoPrev");
+        const btnClear = document.getElementById("btnClearProdFoto");
+        if (url) {
+          prev.src = url;
+          prev.style.display = "block";
+          prev.onerror = () => { prev.style.display = "none"; };
+          btnClear.style.display = "inline-block";
+        } else {
+          prev.src = "";
+          prev.style.display = "none";
+          btnClear.style.display = "none";
+        }
       }
-    } else if (auth) {
-      fbAuthMod.onAuthStateChanged(auth, async (user) => {
-        if (!user) {
-          document.getElementById("loginScreen").style.display = "flex";
-          document.getElementById("adminScreen").style.display = "none";
+
+      function actualizarPreviewLogo() {
+        const url = document.getElementById("nLogo").value.trim();
+        const prev = document.getElementById("nLogoPrev");
+        const btnClear = document.getElementById("btnClearLogo");
+        if (url) {
+          prev.src = url;
+          prev.style.display = "block";
+          prev.onerror = () => { prev.style.display = "none"; };
+          btnClear.style.display = "inline-block";
+        } else {
+          prev.src = "";
+          prev.style.display = "none";
+          btnClear.style.display = "none";
+        }
+      }
+
+      function obtenerBaseInicial(ownerUid = "demo") {
+        if (window.CATALOGO_DATA) {
+          const copia = JSON.parse(JSON.stringify(window.CATALOGO_DATA));
+          copia.ownerUid = ownerUid;
+          copia.productos = (copia.productos || []).map(p => ({ ...p, disponible: p.disponible !== false, esPromo: Boolean(p.esPromo) }));
+          return copia;
+        }
+        return { ownerUid, negocio: { nombre: "A LA ROMANA" }, categorias: [], productos: [] };
+      }
+
+      async function guardarEnNube(msg = "✅ ¡Guardado y actualizado!") {
+        if (DEMO_MODE) {
+          try {
+            localStorage.setItem("demo_tienda_" + TIENDA_ID, JSON.stringify(DATA));
+            showToast(msg);
+          } catch (e) {
+            showToast("❌ Demasiado pesado para el modo prueba local.", true);
+          }
           return;
         }
-        const ref = fbDbMod.doc(db, "tiendas", TIENDA_ID);
-        const snap = await fbDbMod.getDoc(ref);
-        if (snap.exists()) {
-          const d = snap.data();
-          if (d.ownerUid && d.ownerUid !== user.uid) { alert("Esta cuenta no tiene permiso para editar este catálogo."); await fbAuthMod.signOut(auth); return; }
-          DATA = d;
-        } else {
-          DATA = obtenerBaseInicial(user.uid);
-          await fbDbMod.setDoc(ref, DATA);
-          showToast("🎉 ¡Catálogo inicial creado!");
+        try {
+          await fbDbMod.setDoc(fbDbMod.doc(db, "tiendas", TIENDA_ID), DATA);
+          showToast(msg);
+        } catch (e) {
+          showToast("❌ Error al guardar.", true);
         }
-        entrarAlPanel();
-      });
-    }
+      }
 
-    document.getElementById("loginForm").onsubmit = async (e) => {
-      e.preventDefault();
-      const errEl = document.getElementById("loginErr"); errEl.style.display = "none";
-      const email = document.getElementById("lEmail").value.trim();
-      const pass = document.getElementById("lPass").value;
+      function comprimirImagen(file, maxW = 700, quality = 0.78, asDataUrl = false) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+              const scale = Math.min(1, maxW / img.width);
+              const canvas = document.createElement("canvas");
+              canvas.width = Math.round(img.width * scale);
+              canvas.height = Math.round(img.height * scale);
+              canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+              if (asDataUrl) resolve(canvas.toDataURL("image/jpeg", quality));
+              else canvas.toBlob(blob => resolve(blob), "image/jpeg", quality);
+            };
+            img.onerror = reject; img.src = e.target.result;
+          };
+          reader.onerror = reject; reader.readAsDataURL(file);
+        });
+      }
+
+      async function subirFoto(file) {
+        if (CLOUD_DEMO) return await comprimirImagen(file, 500, 0.7, true);
+        const blob = await comprimirImagen(file, 800, 0.78, false);
+        const fd = new FormData();
+        fd.append("file", blob, "foto.jpg");
+        fd.append("upload_preset", CFG.CLOUDINARY_UPLOAD_PRESET);
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CFG.CLOUDINARY_CLOUD_NAME}/image/upload`, { method: "POST", body: fd });
+        const json = await res.json();
+        if (!json.secure_url) throw new Error(json.error?.message || "Error subiendo foto");
+        return json.secure_url;
+      }
+
+      function entrarAlPanel() {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("adminScreen").style.display = "block";
+        if (DEMO_MODE) document.getElementById("demoTopWarn").style.display = "block";
+        renderTodo();
+      }
+
+      function leerLocalSeguro() {
+        try {
+          const raw = localStorage.getItem("demo_tienda_" + TIENDA_ID);
+          return raw ? JSON.parse(raw) : null;
+        } catch { return null; }
+      }
+
       if (DEMO_MODE) {
-        if (email === DEMO_EMAIL && pass === DEMO_PASS) {
-          sessionStorage.setItem("demo_logged_" + TIENDA_ID, "1");
+        document.getElementById("demoBanner").style.display = "block";
+        document.getElementById("demoEmailTxt").textContent = DEMO_EMAIL;
+        document.getElementById("demoPassTxt").textContent = DEMO_PASS;
+        document.getElementById("lEmail").value = DEMO_EMAIL;
+        document.getElementById("lPass").value = DEMO_PASS;
+
+        if (sessionStorage.getItem("demo_logged_" + TIENDA_ID) === "1") {
           DATA = leerLocalSeguro() || obtenerBaseInicial();
-          localStorage.setItem("demo_tienda_" + TIENDA_ID, JSON.stringify(DATA));
           entrarAlPanel();
-        } else {
-          errEl.textContent = "Correo o contraseña de prueba incorrectos."; errEl.style.display = "block";
         }
-        return;
+      } else if (auth) {
+        fbAuthMod.onAuthStateChanged(auth, async (user) => {
+          if (!user) {
+            document.getElementById("loginScreen").style.display = "flex";
+            document.getElementById("adminScreen").style.display = "none";
+            return;
+          }
+          const ref = fbDbMod.doc(db, "tiendas", TIENDA_ID);
+          const snap = await fbDbMod.getDoc(ref);
+          if (snap.exists()) {
+            const d = snap.data();
+            if (d.ownerUid && d.ownerUid !== user.uid) { alert("Esta cuenta no tiene permiso para editar este catálogo."); await fbAuthMod.signOut(auth); return; }
+            DATA = d;
+          } else {
+            DATA = obtenerBaseInicial(user.uid);
+            await fbDbMod.setDoc(ref, DATA);
+            showToast("🎉 ¡Catálogo inicial creado!");
+          }
+          entrarAlPanel();
+        });
       }
-      const btn = document.getElementById("btnLogin"); btn.textContent = "Ingresando...";
-      try { await fbAuthMod.signInWithEmailAndPassword(auth, email, pass); }
-      catch { errEl.textContent = "Correo o contraseña incorrectos."; errEl.style.display = "block"; }
-      btn.textContent = "Ingresar";
-    };
 
-    document.getElementById("btnLogout").onclick = () => {
-      if (DEMO_MODE) { sessionStorage.removeItem("demo_logged_" + TIENDA_ID); location.reload(); }
-      else fbAuthMod.signOut(auth);
-    };
-
-    document.getElementById("btnCopyLink").onclick = async () => {
-      const base = window.location.href.split("admin.html")[0];
-      const link = base + "index.html?t=" + encodeURIComponent(TIENDA_ID);
-      try { await navigator.clipboard.writeText(link); showToast("🔗 Link copiado"); }
-      catch { prompt("Copiá el link del catálogo:", link); }
-    };
-
-    function renderTodo() {
-      document.getElementById("admStoreTitle").textContent = (DATA.negocio?.nombre || TIENDA_ID) + " · Admin";
-      const modo = DATA.negocio?.estadoModo || (DATA.negocio?.forzarAbierto ? "abierto" : "auto");
-      document.querySelectorAll(".estado-btn").forEach(b => b.classList.toggle("active", b.dataset.estado === modo));
-      renderFilterCats(); renderProds(); renderCats(); cargarFormNegocio();
-    }
-
-    function renderFilterCats() {
-      const sel = document.getElementById("admFilterCat"); const val = sel.value;
-      sel.innerHTML = `<option value="todas">Todas las categorías</option>`;
-      (DATA.categorias || []).forEach(c => { const o = document.createElement("option"); o.value = c.id; o.textContent = `${c.icono || "🍕"} ${c.nombre}`; sel.appendChild(o); });
-      sel.value = val || "todas";
-    }
-
-    function renderProds() {
-      const box = document.getElementById("prodList"); box.innerHTML = "";
-      const q = document.getElementById("admSearch").value.trim().toLowerCase();
-      const fCat = document.getElementById("admFilterCat").value;
-      const catMap = Object.fromEntries((DATA.categorias || []).map(c => [c.id, c.nombre]));
-
-      (DATA.productos || []).forEach((p, idx) => {
-        if (fCat !== "todas" && p.categoriaId !== fCat) return;
-        if (q && !(p.nombre || "").toLowerCase().includes(q)) return;
-        const enStock = p.disponible !== false;
-        const item = document.createElement("div"); item.className = "prod-item" + (enStock ? "" : " sin-stock");
-        const thumb = document.createElement("div"); thumb.className = "thumb";
-        if (p.foto) { const img = document.createElement("img"); img.src = p.foto; img.onerror = () => { thumb.textContent = p.icono || "🍕"; }; thumb.appendChild(img); }
-        else thumb.textContent = p.icono || "🍕";
-
-        const info = document.createElement("div"); info.className = "prod-info";
-        const h4 = document.createElement("h4"); h4.textContent = p.nombre;
-        const meta = document.createElement("div"); meta.className = "prod-meta"; meta.textContent = `${catMap[p.categoriaId] || ""} ${enStock ? "" : "· 🚫 OCULTO (Sin stock)"}`;
-        const pr = document.createElement("div"); pr.className = "prod-price"; pr.textContent = fmt(p.precio);
-        info.appendChild(h4); info.appendChild(meta); info.appendChild(pr);
-
-        const acts = document.createElement("div"); acts.className = "prod-actions";
-        const bStock = document.createElement("button"); bStock.className = "act-btn " + (enStock ? "stock-on" : "stock-off");
-        bStock.textContent = enStock ? "✅ Con Stock" : "🚫 Sin Stock";
-        bStock.onclick = async () => { DATA.productos[idx].disponible = !enStock; renderProds(); await guardarEnNube(enStock ? "Producto ocultado (Sin stock)" : "Producto visible (Con stock)"); };
-
-        const bPromo = document.createElement("button"); bPromo.className = "act-btn " + (p.esPromo ? "promo-on" : "");
-        bPromo.textContent = p.esPromo ? "🔥 Promo" : "Promo";
-        bPromo.onclick = async () => { DATA.productos[idx].esPromo = !p.esPromo; renderProds(); await guardarEnNube(); };
-
-        const bEdit = document.createElement("button"); bEdit.className = "act-btn"; bEdit.textContent = "✏️ Editar";
-        bEdit.onclick = () => abrirModalProd(idx);
-
-        const bDel = document.createElement("button"); bDel.className = "act-btn del"; bDel.textContent = "🗑️";
-        bDel.onclick = async () => { if (!confirm(`¿Seguro querés borrar "${p.nombre}"?`)) return; DATA.productos.splice(idx, 1); renderProds(); await guardarEnNube("🗑️ Producto eliminado"); };
-
-        acts.appendChild(bStock); acts.appendChild(bPromo); acts.appendChild(bEdit); acts.appendChild(bDel);
-        item.appendChild(thumb); item.appendChild(info); item.appendChild(acts); box.appendChild(item);
-      });
-    }
-
-    function abrirModalProd(idx = -1) {
-      editProdIdx = idx;
-      const sel = document.getElementById("pCat"); sel.innerHTML = "";
-      (DATA.categorias || []).forEach(c => { const o = document.createElement("option"); o.value = c.id; o.textContent = `${c.icono || ""} ${c.nombre}`; sel.appendChild(o); });
-      const prev = document.getElementById("pFotoPrev"); document.getElementById("pUpStatus").textContent = "";
-      if (idx === -1) {
-        document.getElementById("mpTitle").textContent = "NUEVO PRODUCTO";
-        document.getElementById("pNombre").value = ""; document.getElementById("pPrecio").value = ""; document.getElementById("pDesc").value = "";
-        document.getElementById("pFoto").value = ""; document.getElementById("pIcono").value = "🍕"; document.getElementById("pNota").value = "";
-        document.getElementById("pStock").checked = true; document.getElementById("pPromo").checked = false; prev.style.display = "none";
-      } else {
-        const p = DATA.productos[idx];
-        document.getElementById("mpTitle").textContent = "EDITAR PRODUCTO"; sel.value = p.categoriaId;
-        document.getElementById("pNombre").value = p.nombre || ""; document.getElementById("pPrecio").value = p.precio || "";
-        document.getElementById("pDesc").value = p.descripcion || ""; document.getElementById("pFoto").value = p.foto || "";
-        document.getElementById("pIcono").value = p.icono || "🍕"; document.getElementById("pNota").value = p.ejemploNota || "";
-        document.getElementById("pStock").checked = p.disponible !== false; document.getElementById("pPromo").checked = Boolean(p.esPromo);
-        if (p.foto) { prev.src = p.foto; prev.style.display = "block"; } else prev.style.display = "none";
-      }
-      document.getElementById("mProd").classList.add("open");
-    }
-
-    document.getElementById("btnNewProd").onclick = () => {
-      if (!DATA.categorias || DATA.categorias.length === 0) return alert("Primero creá al menos una categoría.");
-      abrirModalProd(-1);
-    };
-    document.getElementById("pFotoFile").onchange = async (e) => {
-      const file = e.target.files[0]; if (!file) return;
-      const st = document.getElementById("pUpStatus"); st.textContent = "⏳ Procesando foto...";
-      try {
-        const url = await subirFoto(file);
-        document.getElementById("pFoto").value = url;
-        const prev = document.getElementById("pFotoPrev"); prev.src = url; prev.style.display = "block";
-        st.textContent = "✅ Foto lista";
-      } catch (err) { st.textContent = "❌ " + err.message; }
-    };
-    document.getElementById("btnSaveProd").onclick = async () => {
-      const nombre = document.getElementById("pNombre").value.trim();
-      const precio = Number(document.getElementById("pPrecio").value);
-      if (!nombre || !precio) return alert("Completá el nombre y el precio.");
-      const obj = {
-        categoriaId: document.getElementById("pCat").value, nombre, precio,
-        descripcion: document.getElementById("pDesc").value.trim(), foto: document.getElementById("pFoto").value.trim(),
-        icono: document.getElementById("pIcono").value.trim() || "🍕", ejemploNota: document.getElementById("pNota").value.trim(),
-        disponible: document.getElementById("pStock").checked, esPromo: document.getElementById("pPromo").checked
+      document.getElementById("loginForm").onsubmit = async (e) => {
+        e.preventDefault();
+        const errEl = document.getElementById("loginErr"); errEl.style.display = "none";
+        const email = document.getElementById("lEmail").value.trim();
+        const pass = document.getElementById("lPass").value;
+        if (DEMO_MODE) {
+          if (email === DEMO_EMAIL && pass === DEMO_PASS) {
+            sessionStorage.setItem("demo_logged_" + TIENDA_ID, "1");
+            DATA = leerLocalSeguro() || obtenerBaseInicial();
+            localStorage.setItem("demo_tienda_" + TIENDA_ID, JSON.stringify(DATA));
+            entrarAlPanel();
+          } else {
+            errEl.textContent = "Correo o contraseña de prueba incorrectos."; errEl.style.display = "block";
+          }
+          return;
+        }
+        const btn = document.getElementById("btnLogin"); btn.textContent = "Ingresando...";
+        try { await fbAuthMod.signInWithEmailAndPassword(auth, email, pass); }
+        catch { errEl.textContent = "Correo o contraseña incorrectos."; errEl.style.display = "block"; }
+        btn.textContent = "Ingresar";
       };
-      if (editProdIdx === -1) DATA.productos.push(obj); else DATA.productos[editProdIdx] = obj;
-      document.getElementById("mProd").classList.remove("open"); renderProds(); await guardarEnNube();
-    };
 
-    function renderCats() {
-      const box = document.getElementById("catList"); box.innerHTML = "";
-      (DATA.categorias || []).forEach((c, idx) => {
-        const item = document.createElement("div"); item.className = "prod-item";
-        const info = document.createElement("div"); info.className = "prod-info";
-        const h4 = document.createElement("h4"); h4.textContent = `${c.icono || "🍕"} ${c.nombre}`; info.appendChild(h4);
-        const acts = document.createElement("div"); acts.className = "prod-actions";
-        const bUp = document.createElement("button"); bUp.className = "act-btn"; bUp.textContent = "⬆️";
-        bUp.onclick = async () => { if (idx === 0) return; [DATA.categorias[idx-1], DATA.categorias[idx]] = [DATA.categorias[idx], DATA.categorias[idx-1]]; renderTodo(); await guardarEnNube(); };
-        const bEdit = document.createElement("button"); bEdit.className = "act-btn"; bEdit.textContent = "✏️ Editar";
-        bEdit.onclick = () => { editCatIdx = idx; document.getElementById("mcTitle").textContent = "EDITAR CATEGORÍA"; document.getElementById("cNombre").value = c.nombre; document.getElementById("cIcono").value = c.icono || "🍕"; document.getElementById("mCat").classList.add("open"); };
-        const bDel = document.createElement("button"); bDel.className = "act-btn del"; bDel.textContent = "🗑️";
-        bDel.onclick = async () => {
-          if ((DATA.productos || []).some(p => p.categoriaId === c.id)) return alert("Borrá o mové primero los productos de esta categoría.");
-          if (!confirm(`¿Borrar la categoría "${c.nombre}"?`)) return;
-          DATA.categorias.splice(idx, 1); renderTodo(); await guardarEnNube();
+      document.getElementById("btnLogout").onclick = () => {
+        if (DEMO_MODE) { sessionStorage.removeItem("demo_logged_" + TIENDA_ID); location.reload(); }
+        else fbAuthMod.signOut(auth);
+      };
+
+      document.getElementById("btnCopyLink").onclick = async () => {
+        const link = "https://tupedido-ok.github.io/Menu/";
+        try { await navigator.clipboard.writeText(link); showToast("🔗 Link copiado"); }
+        catch { prompt("Copiá el link del catálogo:", link); }
+      };
+
+      function renderTodo() {
+        document.getElementById("admStoreTitle").textContent = (DATA.negocio?.nombre || "A LA ROMANA") + " · Admin";
+        const modo = DATA.negocio?.estadoModo || (DATA.negocio?.forzarAbierto ? "abierto" : "auto");
+        document.querySelectorAll(".estado-btn").forEach(b => b.classList.toggle("active", b.dataset.estado === modo));
+        renderFilterCats(); renderProds(); renderCats(); cargarFormNegocio();
+      }
+
+      function renderFilterCats() {
+        const sel = document.getElementById("admFilterCat"); const val = sel.value;
+        sel.innerHTML = `<option value="todas">Todas las categorías</option>`;
+        (DATA.categorias || []).forEach(c => { const o = document.createElement("option"); o.value = c.id; o.textContent = `${c.icono || "🍕"} ${c.nombre}`; sel.appendChild(o); });
+        sel.value = val || "todas";
+      }
+
+      function renderProds() {
+        const box = document.getElementById("prodList"); box.innerHTML = "";
+        const q = document.getElementById("admSearch").value.trim().toLowerCase();
+        const fCat = document.getElementById("admFilterCat").value;
+        const catMap = Object.fromEntries((DATA.categorias || []).map(c => [c.id, c.nombre]));
+
+        (DATA.productos || []).forEach((p, idx) => {
+          if (fCat !== "todas" && p.categoriaId !== fCat) return;
+          if (q && !(p.nombre || "").toLowerCase().includes(q)) return;
+          const enStock = p.disponible !== false;
+          const item = document.createElement("div"); item.className = "prod-item" + (enStock ? "" : " sin-stock");
+          const thumb = document.createElement("div"); thumb.className = "thumb";
+          const foto = (p.foto || "").trim();
+          if (foto) {
+            const img = document.createElement("img"); img.src = foto;
+            img.onerror = () => { thumb.textContent = p.icono || "🍕"; };
+            thumb.appendChild(img);
+          } else {
+            thumb.textContent = p.icono || "🍕";
+          }
+
+          const info = document.createElement("div"); info.className = "prod-info";
+          const h4 = document.createElement("h4"); h4.textContent = p.nombre;
+          const meta = document.createElement("div"); meta.className = "prod-meta"; meta.textContent = `${catMap[p.categoriaId] || ""} ${enStock ? "" : "· 🚫 OCULTO (Sin stock)"}`;
+          const pr = document.createElement("div"); pr.className = "prod-price"; pr.textContent = fmt(p.precio);
+          info.appendChild(h4); info.appendChild(meta); info.appendChild(pr);
+
+          const acts = document.createElement("div"); acts.className = "prod-actions";
+          const bStock = document.createElement("button"); bStock.className = "act-btn " + (enStock ? "stock-on" : "stock-off");
+          bStock.textContent = enStock ? "✅ Con Stock" : "🚫 Sin Stock";
+          bStock.onclick = async () => { DATA.productos[idx].disponible = !enStock; renderProds(); await guardarEnNube(enStock ? "Producto ocultado (Sin stock)" : "Producto visible (Con stock)"); };
+
+          const bPromo = document.createElement("button"); bPromo.className = "act-btn " + (p.esPromo ? "promo-on" : "");
+          bPromo.textContent = p.esPromo ? "🔥 Promo" : "Promo";
+          bPromo.onclick = async () => { DATA.productos[idx].esPromo = !p.esPromo; renderProds(); await guardarEnNube(); };
+
+          const bEdit = document.createElement("button"); bEdit.className = "act-btn"; bEdit.textContent = "✏️ Editar";
+          bEdit.onclick = () => abrirModalProd(idx);
+
+          const bDel = document.createElement("button"); bDel.className = "act-btn del"; bDel.textContent = "🗑️";
+          bDel.onclick = async () => { if (!confirm(`¿Seguro querés borrar "${p.nombre}"?`)) return; DATA.productos.splice(idx, 1); renderProds(); await guardarEnNube("🗑️ Producto eliminado"); };
+
+          acts.appendChild(bStock); acts.appendChild(bPromo); acts.appendChild(bEdit); acts.appendChild(bDel);
+          item.appendChild(thumb); item.appendChild(info); item.appendChild(acts); box.appendChild(item);
+        });
+      }
+
+      function abrirModalProd(idx = -1) {
+        editProdIdx = idx;
+        const sel = document.getElementById("pCat"); sel.innerHTML = "";
+        (DATA.categorias || []).forEach(c => { const o = document.createElement("option"); o.value = c.id; o.textContent = `${c.icono || ""} ${c.nombre}`; sel.appendChild(o); });
+        document.getElementById("pUpStatus").textContent = "";
+        document.getElementById("pFotoFile").value = "";
+        if (idx === -1) {
+          document.getElementById("mpTitle").textContent = "NUEVO PRODUCTO";
+          document.getElementById("pNombre").value = ""; document.getElementById("pPrecio").value = ""; document.getElementById("pDesc").value = "";
+          document.getElementById("pFoto").value = ""; document.getElementById("pIcono").value = "🍕"; document.getElementById("pNota").value = "";
+          document.getElementById("pStock").checked = true; document.getElementById("pPromo").checked = false;
+        } else {
+          const p = DATA.productos[idx];
+          document.getElementById("mpTitle").textContent = "EDITAR PRODUCTO"; sel.value = p.categoriaId;
+          document.getElementById("pNombre").value = p.nombre || ""; document.getElementById("pPrecio").value = p.precio || "";
+          document.getElementById("pDesc").value = p.descripcion || ""; document.getElementById("pFoto").value = p.foto || "";
+          document.getElementById("pIcono").value = p.icono || "🍕"; document.getElementById("pNota").value = p.ejemploNota || "";
+          document.getElementById("pStock").checked = p.disponible !== false; document.getElementById("pPromo").checked = Boolean(p.esPromo);
+        }
+        actualizarPreviewProd();
+        document.getElementById("mProd").classList.add("open");
+      }
+
+      document.getElementById("btnNewProd").onclick = () => {
+        if (!DATA.categorias || DATA.categorias.length === 0) return alert("Primero creá al menos una categoría.");
+        abrirModalProd(-1);
+      };
+      document.getElementById("pFoto").addEventListener("input", actualizarPreviewProd);
+      document.getElementById("btnClearProdFoto").onclick = () => {
+        document.getElementById("pFoto").value = "";
+        document.getElementById("pFotoFile").value = "";
+        document.getElementById("pUpStatus").textContent = "Sin foto (tocá Guardar Producto)";
+        actualizarPreviewProd();
+      };
+      document.getElementById("pFotoFile").onchange = async (e) => {
+        const file = e.target.files[0]; if (!file) return;
+        const st = document.getElementById("pUpStatus"); st.textContent = "⏳ Procesando foto...";
+        try {
+          const url = await subirFoto(file);
+          document.getElementById("pFoto").value = url;
+          actualizarPreviewProd();
+          st.textContent = "✅ Foto lista";
+        } catch (err) { st.textContent = "❌ " + err.message; }
+      };
+      document.getElementById("btnSaveProd").onclick = async () => {
+        const nombre = document.getElementById("pNombre").value.trim();
+        const precio = Number(document.getElementById("pPrecio").value);
+        if (!nombre || !precio) return alert("Completá el nombre y el precio.");
+        const obj = {
+          categoriaId: document.getElementById("pCat").value, nombre, precio,
+          descripcion: document.getElementById("pDesc").value.trim(), foto: document.getElementById("pFoto").value.trim(),
+          icono: document.getElementById("pIcono").value.trim() || "🍕", ejemploNota: document.getElementById("pNota").value.trim(),
+          disponible: document.getElementById("pStock").checked, esPromo: document.getElementById("pPromo").checked
         };
-        acts.appendChild(bUp); acts.appendChild(bEdit); acts.appendChild(bDel);
-        item.appendChild(info); item.appendChild(acts); box.appendChild(item);
+        if (editProdIdx === -1) DATA.productos.push(obj); else DATA.productos[editProdIdx] = obj;
+        document.getElementById("mProd").classList.remove("open"); renderProds(); await guardarEnNube();
+      };
+
+      function renderCats() {
+        const box = document.getElementById("catList"); box.innerHTML = "";
+        (DATA.categorias || []).forEach((c, idx) => {
+          const item = document.createElement("div"); item.className = "prod-item";
+          const info = document.createElement("div"); info.className = "prod-info";
+          const h4 = document.createElement("h4"); h4.textContent = `${c.icono || "🍕"} ${c.nombre}`; info.appendChild(h4);
+          const acts = document.createElement("div"); acts.className = "prod-actions";
+          const bUp = document.createElement("button"); bUp.className = "act-btn"; bUp.textContent = "⬆️";
+          bUp.onclick = async () => { if (idx === 0) return; [DATA.categorias[idx-1], DATA.categorias[idx]] = [DATA.categorias[idx], DATA.categorias[idx-1]]; renderTodo(); await guardarEnNube(); };
+          const bEdit = document.createElement("button"); bEdit.className = "act-btn"; bEdit.textContent = "✏️ Editar";
+          bEdit.onclick = () => { editCatIdx = idx; document.getElementById("mcTitle").textContent = "EDITAR CATEGORÍA"; document.getElementById("cNombre").value = c.nombre; document.getElementById("cIcono").value = c.icono || "🍕"; document.getElementById("mCat").classList.add("open"); };
+          const bDel = document.createElement("button"); bDel.className = "act-btn del"; bDel.textContent = "🗑️";
+          bDel.onclick = async () => {
+            if ((DATA.productos || []).some(p => p.categoriaId === c.id)) return alert("Borrá o mové primero los productos de esta categoría.");
+            if (!confirm(`¿Borrar la categoría "${c.nombre}"?`)) return;
+            DATA.categorias.splice(idx, 1); renderTodo(); await guardarEnNube();
+          };
+          acts.appendChild(bUp); acts.appendChild(bEdit); acts.appendChild(bDel);
+          item.appendChild(info); item.appendChild(acts); box.appendChild(item);
+        });
+      }
+
+      document.getElementById("btnNewCat").onclick = () => { editCatIdx = -1; document.getElementById("mcTitle").textContent = "NUEVA CATEGORÍA"; document.getElementById("cNombre").value = ""; document.getElementById("cIcono").value = "🍕"; document.getElementById("mCat").classList.add("open"); };
+      document.getElementById("btnSaveCat").onclick = async () => {
+        const nombre = document.getElementById("cNombre").value.trim(); const icono = document.getElementById("cIcono").value.trim() || "🍕";
+        if (!nombre) return alert("Escribí un nombre.");
+        if (editCatIdx === -1) {
+          const id = nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-") + "-" + Date.now().toString().slice(-3);
+          DATA.categorias.push({ id, nombre, icono });
+        } else { DATA.categorias[editCatIdx].nombre = nombre; DATA.categorias[editCatIdx].icono = icono; }
+        document.getElementById("mCat").classList.remove("open"); renderTodo(); await guardarEnNube();
+      };
+
+      function cargarFormNegocio() {
+        const n = DATA.negocio || {};
+        document.getElementById("nNombre").value = n.nombre || ""; document.getElementById("nSubtitulo").value = n.subtitulo || "";
+        document.getElementById("nLogo").value = n.logo || "";
+        document.getElementById("nLogoFile").value = "";
+        actualizarPreviewLogo();
+        document.getElementById("nWa").value = n.whatsapp || ""; document.getElementById("nTelVis").value = n.telefonoVisible || "";
+        document.getElementById("nTelFijo").value = n.telefonoFijo || ""; document.getElementById("nDir").value = n.direccion || "";
+        document.getElementById("nIg").value = n.instagram || ""; document.getElementById("nEnvio").value = n.envioTexto || "";
+        document.getElementById("nHorTxt").value = n.horarioTexto || ""; document.getElementById("nHorAp").value = n.horaApertura ?? 19; document.getElementById("nHorCi").value = n.horaCierre ?? 24;
+      }
+
+      document.getElementById("nLogo").addEventListener("input", actualizarPreviewLogo);
+      document.getElementById("btnClearLogo").onclick = () => {
+        document.getElementById("nLogo").value = "";
+        document.getElementById("nLogoFile").value = "";
+        actualizarPreviewLogo();
+        showToast("Logo quitado (tocá Guardar Datos abajo)");
+      };
+      document.getElementById("nLogoFile").onchange = async (e) => {
+        const file = e.target.files[0]; if (!file) return;
+        showToast("⏳ Procesando logo...");
+        try {
+          const url = await subirFoto(file);
+          document.getElementById("nLogo").value = url;
+          actualizarPreviewLogo();
+          showToast("✅ Logo listo (tocá Guardar Datos abajo)");
+        }
+        catch (err) { showToast("❌ " + err.message, true); }
+      };
+
+      document.getElementById("btnSaveInfo").onclick = async () => {
+        DATA.negocio = {
+          ...DATA.negocio, nombre: document.getElementById("nNombre").value.trim(), subtitulo: document.getElementById("nSubtitulo").value.trim(),
+          logo: document.getElementById("nLogo").value.trim(), whatsapp: document.getElementById("nWa").value.trim(),
+          telefonoVisible: document.getElementById("nTelVis").value.trim(), telefonoFijo: document.getElementById("nTelFijo").value.trim(),
+          direccion: document.getElementById("nDir").value.trim(), instagram: document.getElementById("nIg").value.trim(),
+          envioTexto: document.getElementById("nEnvio").value.trim(), horarioTexto: document.getElementById("nHorTxt").value.trim(),
+          horaApertura: Number(document.getElementById("nHorAp").value), horaCierre: Number(document.getElementById("nHorCi").value)
+        };
+        renderTodo(); await guardarEnNube();
+      };
+
+      document.querySelectorAll(".estado-btn").forEach(b => {
+        b.onclick = async () => { DATA.negocio.estadoModo = b.dataset.estado; DATA.negocio.forzarAbierto = (b.dataset.estado === "abierto"); renderTodo(); await guardarEnNube(); };
       });
-    }
-
-    document.getElementById("btnNewCat").onclick = () => { editCatIdx = -1; document.getElementById("mcTitle").textContent = "NUEVA CATEGORÍA"; document.getElementById("cNombre").value = ""; document.getElementById("cIcono").value = "🍕"; document.getElementById("mCat").classList.add("open"); };
-    document.getElementById("btnSaveCat").onclick = async () => {
-      const nombre = document.getElementById("cNombre").value.trim(); const icono = document.getElementById("cIcono").value.trim() || "🍕";
-      if (!nombre) return alert("Escribí un nombre.");
-      if (editCatIdx === -1) {
-        const id = nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-") + "-" + Date.now().toString().slice(-3);
-        DATA.categorias.push({ id, nombre, icono });
-      } else { DATA.categorias[editCatIdx].nombre = nombre; DATA.categorias[editCatIdx].icono = icono; }
-      document.getElementById("mCat").classList.remove("open"); renderTodo(); await guardarEnNube();
-    };
-
-    function cargarFormNegocio() {
-      const n = DATA.negocio || {};
-      document.getElementById("nNombre").value = n.nombre || ""; document.getElementById("nSubtitulo").value = n.subtitulo || "";
-      document.getElementById("nLogo").value = n.logo || "";
-      const prev = document.getElementById("nLogoPrev");
-      if (n.logo) { prev.src = n.logo; prev.style.display = "block"; } else prev.style.display = "none";
-      document.getElementById("nWa").value = n.whatsapp || ""; document.getElementById("nTelVis").value = n.telefonoVisible || "";
-      document.getElementById("nTelFijo").value = n.telefonoFijo || ""; document.getElementById("nDir").value = n.direccion || "";
-      document.getElementById("nIg").value = n.instagram || ""; document.getElementById("nEnvio").value = n.envioTexto || "";
-      document.getElementById("nHorTxt").value = n.horarioTexto || ""; document.getElementById("nHorAp").value = n.horaApertura ?? 19; document.getElementById("nHorCi").value = n.horaCierre ?? 24;
-    }
-
-    document.getElementById("nLogoFile").onchange = async (e) => {
-      const file = e.target.files[0]; if (!file) return;
-      showToast("⏳ Procesando logo...");
-      try { const url = await subirFoto(file); document.getElementById("nLogo").value = url; const prev = document.getElementById("nLogoPrev"); prev.src = url; prev.style.display = "block"; showToast("✅ Logo listo (tocá Guardar Datos abajo)"); }
-      catch (err) { showToast("❌ " + err.message, true); }
-    };
-
-    document.getElementById("btnSaveInfo").onclick = async () => {
-      DATA.negocio = {
-        ...DATA.negocio, nombre: document.getElementById("nNombre").value.trim(), subtitulo: document.getElementById("nSubtitulo").value.trim(),
-        logo: document.getElementById("nLogo").value.trim(), whatsapp: document.getElementById("nWa").value.trim(),
-        telefonoVisible: document.getElementById("nTelVis").value.trim(), telefonoFijo: document.getElementById("nTelFijo").value.trim(),
-        direccion: document.getElementById("nDir").value.trim(), instagram: document.getElementById("nIg").value.trim(),
-        envioTexto: document.getElementById("nEnvio").value.trim(), horarioTexto: document.getElementById("nHorTxt").value.trim(),
-        horaApertura: Number(document.getElementById("nHorAp").value), horaCierre: Number(document.getElementById("nHorCi").value)
-      };
-      renderTodo(); await guardarEnNube();
-    };
-
-    document.querySelectorAll(".estado-btn").forEach(b => {
-      b.onclick = async () => { DATA.negocio.estadoModo = b.dataset.estado; DATA.negocio.forzarAbierto = (b.dataset.estado === "abierto"); renderTodo(); await guardarEnNube(); };
-    });
-    document.querySelectorAll(".tab-btn").forEach(b => {
-      b.onclick = () => {
-        document.querySelectorAll(".tab-btn").forEach(x => x.classList.remove("active"));
-        document.querySelectorAll(".panel-sec").forEach(x => x.classList.remove("active"));
-        b.classList.add("active"); document.getElementById(b.dataset.tab).classList.add("active");
-      };
-    });
-    document.getElementById("admSearch").oninput = renderProds;
-    document.getElementById("admFilterCat").onchange = renderProds;
-    document.querySelectorAll("[data-close]").forEach(b => { b.onclick = () => document.getElementById(b.dataset.close).classList.remove("open"); });
+      document.querySelectorAll(".tab-btn").forEach(b => {
+        b.onclick = () => {
+          document.querySelectorAll(".tab-btn").forEach(x => x.classList.remove("active"));
+          document.querySelectorAll(".panel-sec").forEach(x => x.classList.remove("active"));
+          b.classList.add("active"); document.getElementById(b.dataset.tab).classList.add("active");
+        };
+      });
+      document.getElementById("admSearch").oninput = renderProds;
+      document.getElementById("admFilterCat").onchange = renderProds;
+      document.querySelectorAll("[data-close]").forEach(b => { b.onclick = () => document.getElementById(b.dataset.close).classList.remove("open"); });
+    })();
   </script>
 </body>
 </html>
